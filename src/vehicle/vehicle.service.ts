@@ -1,6 +1,5 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import DriverEntity from 'src/driver/entities/driver.entity';
 import { Repository } from 'typeorm';
 import { Vehicle } from './dto/VehicleDto';
 import VehicleEntity from './entities/vehicle.entity';
