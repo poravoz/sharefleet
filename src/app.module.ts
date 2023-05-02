@@ -21,24 +21,12 @@ import { DatabaseModule } from 'src/database/database.module';
 import { UserModule } from './user/user.module';
 import { AuthModule} from './auth/auth.module';
 import { HttpModule } from '@nestjs/axios';
-import { MulterModule } from '@nestjs/platform-express';
-import { diskStorage } from 'multer';
 import { FilesModule } from './files/files.module';
 import { FilesController } from './files/files.controller';
 
 
 @Module({
   imports: [VehicleModule, DriverModule, ResponseModule, HttpModule, UserModule, 
-    MulterModule.register({
-      storage: diskStorage({
-        destination: './avatars',
-        filename: (req, file, cb) => {
-          const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1e9)
-          cb(null, file.fieldname + '-' + uniqueSuffix)
-        }
-      })
-    }),
-
     ConfigModule.forRoot({
     validationSchema: Joi.object({
       POSTGRES_HOST: Joi.string().required(),
