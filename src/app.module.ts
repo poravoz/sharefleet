@@ -26,8 +26,7 @@ import { FilesController } from './files/files.controller';
 
 
 @Module({
-  imports: [VehicleModule, DriverModule, ResponseModule, HttpModule, UserModule, 
-    ConfigModule.forRoot({
+  imports: [ ConfigModule.forRoot({
     validationSchema: Joi.object({
       POSTGRES_HOST: Joi.string().required(),
       POSTGRES_PORT: Joi.number().required(),
@@ -54,8 +53,8 @@ import { FilesController } from './files/files.controller';
   DriverModule,
   ResponseModule,
   VehicleModule,
-  VehicleModule,
   FilesModule,
+  HttpModule, 
 
 ],
   controllers: [AppController, VehicleController, DriverController, ResponseController, FilesController],
