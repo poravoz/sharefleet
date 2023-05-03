@@ -21,7 +21,7 @@ export class DriverController {
   }
 
   @Get(':id')
-  async findCarById(@Param('id', ParseIntPipe) id: number) {
+  async findCarById(@Param('id') id: number) {
     return await this.driverService.getDriverById(id);
   }
 
