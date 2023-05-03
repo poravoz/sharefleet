@@ -20,10 +20,6 @@ export class VehicleEntity {
 
     @Column()
     public price: string;
-
-    @Column()
-    public test: string;
-
 }
 
 export default VehicleEntity;
