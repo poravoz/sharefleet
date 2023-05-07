@@ -21,11 +21,9 @@ import { DatabaseModule } from 'src/database/database.module';
 import { UserModule } from './user/user.module';
 import { AuthModule} from './auth/auth.module';
 import { HttpModule } from '@nestjs/axios';
-import { MulterModule } from '@nestjs/platform-express';
-import { diskStorage } from 'multer';
 import { FilesModule } from './files/files.module';
 import { FilesController } from './files/files.controller';
-import { FilesService } from './files/files.service';
+
 
 
 @Module({
