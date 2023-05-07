@@ -30,15 +30,6 @@ import { FilesService } from './files/files.service';
 
 @Module({
   imports: [VehicleModule, DriverModule, ResponseModule, HttpModule, UserModule, 
-    MulterModule.register({
-      storage: diskStorage({
-        destination: './avatars',
-        filename: (req, file, cb) => {
-          const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1e9)
-          cb(null, file.fieldname + '-' + uniqueSuffix)
-        }
-      })
-    }),
 
     ConfigModule.forRoot({
     validationSchema: Joi.object({
