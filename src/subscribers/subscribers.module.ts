@@ -7,7 +7,7 @@ import { SubscribersController } from './subscribers.controller';
 @Module({
   imports: [TypeOrmModule.forFeature([Subscriber])],
   providers: [SubscribersService],
-  exports: [SubscribersService],
+  exports: [],
   controllers: [SubscribersController],
 })
 export class SubscribersModule {}

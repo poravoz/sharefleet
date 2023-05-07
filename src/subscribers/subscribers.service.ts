@@ -14,7 +14,6 @@ export class SubscribersService {
   async addSubscriber(subscriber: CreateSubscriberDto) {
     const newSubscriber = await this.subscribersRepository.create(subscriber);
     await this.subscribersRepository.save(newSubscriber);
-    console.log('Received add-subscriber request:', subscriber);
     return newSubscriber;
   }
 
