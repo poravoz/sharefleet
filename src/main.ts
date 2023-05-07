@@ -16,8 +16,6 @@ async function bootstrap() {
     },
     
   });
-  console.log('Microservices are running...');
-  console.log('Application is running on: http://localhost:5000');
   await app.startAllMicroservices();
   await app.listen(5433);
 }
