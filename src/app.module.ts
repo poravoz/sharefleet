@@ -25,7 +25,7 @@ import * as Joi from '@hapi/joi';
       }),
     }),
   ],
-  controllers: [SubscribersController],
+  controllers: [AppModule, SubscribersController],
   providers: [AppService, SubscribersService],
 })
 export class AppModule {}
