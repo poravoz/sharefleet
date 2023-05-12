@@ -3,16 +3,18 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { ClientProxyFactory, Transport } from '@nestjs/microservices';
 import { ApiController } from './api/api.controller';
 import { ApiModule } from './api/api.module';
+import { ApiService } from './api/api.service';
+import { AppController } from './app.controller';
 
 @Module({
   imports: [ConfigModule.forRoot({
     isGlobal: true,
-    envFilePath: './env',
+    envFilePath: './.env',
   }),
   ApiModule
   ],
 
-  controllers: [ApiController],
+  controllers: [ApiController, AppController],
   providers: [
     {
       provide: 'AUTH_SERVICE',
@@ -33,7 +35,10 @@ import { ApiModule } from './api/api.module';
           },
         });
       },
+      inject: [ConfigService]
     },
+    ConfigService,
+    ApiService,
   ],
 })
 
