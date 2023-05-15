@@ -9,11 +9,11 @@ export class AppController {
 
     @Get('user')
     async getUser() {
-        return this.authService.send({
-            cmd: 'get-user',
-        },
-        {},
+        let response = this.authService.send({cmd: 'get-user'}, {
+            login: "mykola",
+            password: "123"
+        });
 
-       );
+        return response;
     }
 }

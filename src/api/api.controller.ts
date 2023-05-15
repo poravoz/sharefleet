@@ -1,5 +1,5 @@
 import { Controller } from '@nestjs/common';
-import { Ctx, MessagePattern, RmqContext } from '@nestjs/microservices';
+import { Ctx, MessagePattern, Payload, RmqContext } from '@nestjs/microservices';
 import { ApiService } from './api.service';
 
 @Controller()
@@ -8,9 +8,10 @@ export class ApiController {
     {}
 
     @MessagePattern({ cmd: 'get-user' })
-    async getUser(@Ctx() context: RmqContext) {
+    async getUser(@Payload() userData, @Ctx() context: RmqContext) {
         const channel = context.getChannelRef();
         const message = context.getMessage();
+        console.log(`I'am ${userData.login} and my pass is ...`)
         channel.ack(message);
 
         return { user: 'USER' };
