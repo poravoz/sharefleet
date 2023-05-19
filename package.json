@@ -26,11 +26,11 @@
   "dependencies": {
     "@golevelup/nestjs-stripe": "^0.6.1",
     "@nestjs/axios": "^2.0.0",
-    "@nestjs/common": "^9.0.0",
-    "@nestjs/config": "^2.3.1",
+    "@nestjs/common": "^9.4.1",
+    "@nestjs/config": "^2.3.2",
     "@nestjs/core": "^9.0.0",
-    "@nestjs/jwt": "^10.0.2",
-    "@nestjs/mapped-types": "*",
+    "@nestjs/jwt": "^10.0.3",
+    "@nestjs/mapped-types": "^1.2.2",
     "@nestjs/passport": "^9.0.3",
     "@nestjs/platform-express": "^9.0.0",
     "@nestjs/platform-socket.io": "^9.4.1",
@@ -43,7 +43,7 @@
     "class-transformer": "^0.5.1",
     "class-validator": "^0.14.0",
     "cookie-parser": "^1.4.6",
-    "joi": "^17.8.3",
+    "joi": "^17.9.2",
     "jsonwebtoken": "^9.0.0",
     "mongoose": "^7.0.3",
     "multer": "^1.4.5-lts.1",
@@ -55,7 +55,8 @@
     "rxjs": "^7.2.0",
     "socket.io-client": "^4.6.1",
     "stripe": "^11.17.0",
-    "typeorm": "^0.3.14"
+    "typeorm": "^0.3.14",
+    "uuid": "^9.0.0"
   },
   "devDependencies": {
     "@nestjs/cli": "^9.0.0",
