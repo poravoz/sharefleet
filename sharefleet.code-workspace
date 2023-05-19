@@ -1,0 +1,13 @@
+{
+	"folders": [
+		{
+			"name": "sharefleet",
+			"path": "."
+		},
+		{
+			"name": "gateway",
+			"path": "..\\gateway"
+		}
+	],
+	"settings": {}
+}
