@@ -24,9 +24,6 @@ import { HttpModule } from '@nestjs/axios';
 import { FilesModule } from './files/files.module';
 import { FilesController } from './files/files.controller';
 import { GatewayModule } from './gateway/gateway.module';
-import { SocketModule } from './socket/socket.module';
-
-
 
 @Module({
   imports: [
@@ -60,7 +57,6 @@ import { SocketModule } from './socket/socket.module';
   VehicleModule,
   FilesModule,
   GatewayModule,
-  SocketModule,
 
 ],
   controllers: [AppController, VehicleController, DriverController, ResponseController, FilesController],
