@@ -23,6 +23,9 @@ import { AuthModule} from './auth/auth.module';
 import { HttpModule } from '@nestjs/axios';
 import { FilesModule } from './files/files.module';
 import { FilesController } from './files/files.controller';
+import { PromoCodeModule } from './promo/promo.module';
+import { PromoCodeService } from './promo/promo.service';
+import { PromoCodeController } from './promo/promo.controller';
 
 @Module({
   imports: [
@@ -55,9 +58,10 @@ import { FilesController } from './files/files.controller';
   ResponseModule,
   VehicleModule,
   FilesModule,
+  PromoCodeModule,
 
 ],
-  controllers: [AppController, VehicleController, DriverController, ResponseController, FilesController],
-  providers: [AppService, DriverService, VehicleService, ResponseService],
+  controllers: [AppController, VehicleController, DriverController, ResponseController, FilesController, PromoCodeController],
+  providers: [AppService, DriverService, VehicleService, ResponseService, PromoCodeService],
 })
 export class AppModule {}

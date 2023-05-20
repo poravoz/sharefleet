@@ -7,8 +7,9 @@ import DriverEntity from 'src/driver/entities/driver.entity';
 import { EntityResponse } from 'src/response/entities/response.entity';
 import { VehicleAndDriverEntity } from 'src/vehicle/entities/vehicleAndDriver.entity';
 import DriverAndVehicleEntity from 'src/driver/entities/driverAndVehicle.entity';
-import { DataSource, DataSourceOptions } from 'typeorm';
+import { DataSource } from 'typeorm';
 import PublicFile from 'src/files/publicFile.entity';
+import PromoCodeEntity from 'src/promo/entity/promo.entity';
  
 @Module({
   imports: [
@@ -33,6 +34,7 @@ import PublicFile from 'src/files/publicFile.entity';
           DriverAndVehicleEntity,
           DataSource,
           PublicFile,
+          PromoCodeEntity,
         ],
         synchronize: true,
       })}

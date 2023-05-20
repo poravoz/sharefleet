@@ -13,6 +13,7 @@ import VehicleEntity from './entities/vehicle.entity';
 import DriverEntity from 'src/driver/entities/driver.entity';
 import { EntityResponse } from '../response/entities/response.entity';
 import { HttpModule } from '@nestjs/axios';
+import { SearchModule } from 'src/search/search.module';
 
 
 @Module({

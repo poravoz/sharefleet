@@ -15,6 +15,8 @@ import { ResponseModule } from 'src/response/response.module';
 import VehicleEntity from 'src/vehicle/entities/vehicle.entity';
 import { EntityResponse } from 'src/response/entities/response.entity';
 import { HttpModule } from '@nestjs/axios';
+import { SearchModule } from 'src/search/search.module';
+import { ElasticsearchModule } from '@nestjs/elasticsearch';
  
 @Module({
   imports: [TypeOrmModule.forFeature([DriverEntity, VehicleEntity, EntityResponse]), HttpModule],

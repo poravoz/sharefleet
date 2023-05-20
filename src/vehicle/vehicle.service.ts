@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, Param } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Vehicle } from './dto/VehicleDto';
@@ -11,7 +11,7 @@ export class VehicleService {
     
     constructor(
     @InjectRepository(VehicleEntity)
-    private vehicleRepository: Repository<VehicleEntity>
+    private vehicleRepository: Repository<VehicleEntity>,
     ) {}
     
     
@@ -25,7 +25,6 @@ export class VehicleService {
       if(!vehicle) {
         throw new VehicleExeption('Note is empty!');
       }
-
       return vehicle;
     }
   
@@ -58,7 +57,7 @@ export class VehicleService {
       
     }
   
-    async removeVehicle(id: number): Promise<void> {
+    async removeVehicle(@Param('id') id: number): Promise<void> {
       const vehicle = await this.vehicleRepository.findOne({where: {id}});
       
       if(!vehicle) {
