@@ -23,10 +23,11 @@ import { AuthModule} from './auth/auth.module';
 import { HttpModule } from '@nestjs/axios';
 import { FilesModule } from './files/files.module';
 import { FilesController } from './files/files.controller';
-
+import { GatewayModule } from './gateway/gateway.module';
 
 @Module({
-  imports: [ ConfigModule.forRoot({
+  imports: [
+    ConfigModule.forRoot({
     validationSchema: Joi.object({
       POSTGRES_HOST: Joi.string().required(),
       POSTGRES_PORT: Joi.number().required(),
@@ -48,13 +49,14 @@ import { FilesController } from './files/files.controller';
     })
   }), 
   DatabaseModule,
+  HttpModule,
   UserModule,
   AuthModule,
   DriverModule,
   ResponseModule,
   VehicleModule,
   FilesModule,
-  HttpModule, 
+  GatewayModule,
 
 ],
   controllers: [AppController, VehicleController, DriverController, ResponseController, FilesController],
