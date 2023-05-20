@@ -23,7 +23,6 @@ import { AuthModule} from './auth/auth.module';
 import { HttpModule } from '@nestjs/axios';
 import { FilesModule } from './files/files.module';
 import { FilesController } from './files/files.controller';
-import { GatewayModule } from './gateway/gateway.module';
 
 @Module({
   imports: [
@@ -56,7 +55,6 @@ import { GatewayModule } from './gateway/gateway.module';
   ResponseModule,
   VehicleModule,
   FilesModule,
-  GatewayModule,
 
 ],
   controllers: [AppController, VehicleController, DriverController, ResponseController, FilesController],
