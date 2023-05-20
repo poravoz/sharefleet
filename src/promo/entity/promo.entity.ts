@@ -4,7 +4,7 @@ import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
 export class PromoCodeEntity {
 
     @PrimaryGeneratedColumn("uuid")
-    public id?: number;
+    public id: number;
 
     @Column()
     public code: string;

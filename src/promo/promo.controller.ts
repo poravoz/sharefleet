@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, Param, ParseIntPipe, Post, UseFilters} from "@nestjs/common";
+import { Body, Controller, Delete, Get, Param, Query, Post, UseFilters} from "@nestjs/common";
 import { PromoCode } from "./dto/promo.dto";
 import { PromoCodeFilter } from "./filter/promo-filter";
 import { PromoCodeService } from "./promo.service";
@@ -9,6 +9,16 @@ import {v4 as uuidv4 } from 'uuid';
 @UseFilters(new PromoCodeFilter())
 export class PromoCodeController {
     constructor(private readonly promoCodeService: PromoCodeService) {}
+
+
+  @Get()
+  async getPosts(@Query('search') search: string) {
+    if (search) {
+      return this.promoCodeService.searchForPosts(search);
+    }
+    return this.promoCodeService.getPromoCode();
+  }
+  
 
     @Get()
     async findPromoCode() {

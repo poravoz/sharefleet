@@ -1,15 +1,19 @@
 import { Injectable, Param } from "@nestjs/common";
-import { Repository } from "typeorm";
+import { Repository, In } from "typeorm";
 import { PromoCode } from "./dto/promo.dto";
 import { PromoCodeExeption } from "./exeprion/promo.exeprion";
 import { InjectRepository } from '@nestjs/typeorm';
 import PromoCodeEntity from "./entity/promo.entity";
+import { PromoSearchService } from "./promoSearch.service";
+import PromoCodeSearchBody from "./types/promoSearchBodyInterface";
+import promoCodeSearchResult from "./types/promoSearchBody.interface";
 
 @Injectable()
 export class PromoCodeService {
     constructor(
         @InjectRepository(PromoCodeEntity)
-        private promoCodeRepository: Repository<PromoCodeEntity>
+        private promoCodeRepository: Repository<PromoCodeEntity>,
+        private promoCodeSearchService: PromoSearchService,
     ) {}
 
     async getPromoCode() {
@@ -46,11 +50,23 @@ export class PromoCodeService {
         if(!endDate || endDate.length === 0) {
             throw new PromoCodeExeption('Note is empty');
         }
-
-        const newPromoCode = this.promoCodeRepository.create(dto);
-        return await this.promoCodeRepository.save(newPromoCode);
+       const newPromoCode = await this.promoCodeRepository.create(dto);
+       await this.promoCodeSearchService.indexPromoCode(newPromoCode);
+       return newPromoCode;
 
     }
+
+    async searchForPosts(text: string) {
+        const results = await this.promoCodeSearchService.search(text);
+        const ids = results.map((result: PromoCodeSearchBody) => result.id);
+        if (!ids.length) {
+          return [];
+        }
+        return this.promoCodeRepository
+          .find({
+            where: { id: In(ids) }
+          });
+      }
 
     async deletePromoCode(@Param('id') id: number): Promise<void> {
         const promoCode = await this.promoCodeRepository.findOne({where: {id}});
