@@ -5,8 +5,7 @@ import { PromoCodeExeption } from "./exeprion/promo.exeprion";
 import { InjectRepository } from '@nestjs/typeorm';
 import PromoCodeEntity from "./entity/promo.entity";
 import { PromoSearchService } from "./promoSearch.service";
-import PromoCodeSearchBody from "./types/promoSearchBodyInterface";
-import promoCodeSearchResult from "./types/promoSearchBody.interface";
+import promoCodeSearchResult from "./types/promoSearchBodyInterface";
 
 @Injectable()
 export class PromoCodeService {
@@ -51,21 +50,20 @@ export class PromoCodeService {
             throw new PromoCodeExeption('Note is empty');
         }
        const newPromoCode = await this.promoCodeRepository.create(dto);
-       await this.promoCodeSearchService.indexPromoCode(newPromoCode);
+       await this.promoCodeRepository.save(newPromoCode);
        return newPromoCode;
 
     }
 
-    async searchForPosts(text: string) {
+    async searchForPromoCodes(text: string) {
         const results = await this.promoCodeSearchService.search(text);
-        const ids = results.map((result: PromoCodeSearchBody) => result.id);
+        const ids = results.map((result: PromoCodeEntity) => result.id);
         if (!ids.length) {
           return [];
         }
-        return this.promoCodeRepository
-          .find({
-            where: { id: In(ids) }
-          });
+        return this.promoCodeRepository.find({
+          where: { id: In(ids) },
+        });
       }
 
     async deletePromoCode(@Param('id') id: number): Promise<void> {

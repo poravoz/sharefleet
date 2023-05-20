@@ -1,9 +1,9 @@
 import { Injectable } from '@nestjs/common';
 import { ElasticsearchService } from '@nestjs/elasticsearch';
 import { PromoCode } from './dto/promo.dto';
-import promoCodeSearchResult from './types/promoSearchBody.interface';
+import promoCodeSearchResult from './types/postSearchResponse.interface';
 import PromoCodeSearchBody from './types/promoSearchBodyInterface';
-import PostSearchBody from './types/promoSearchBodyInterface';
+
  
 @Injectable()
 export class PromoSearchService {
@@ -14,7 +14,7 @@ export class PromoSearchService {
   ) {}
  
   async indexPromoCode(promoCode: PromoCode) {
-    return this.elasticsearchService.index<PostSearchBody>({
+    return this.elasticsearchService.index<PromoCodeSearchBody>({
       index: this.index,
       body: {
         id: promoCode.id,

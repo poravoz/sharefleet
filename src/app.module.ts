@@ -28,6 +28,7 @@ import { PromoCodeService } from './promo/promo.service';
 import { PromoCodeController } from './promo/promo.controller';
 import { PromoSearchService } from "./promo/promoSearch.service";
 import { ElasticsearchModule } from '@nestjs/elasticsearch';
+import { SearchModule } from './search/search.module';
 
 @Module({
   imports: [
@@ -60,11 +61,12 @@ import { ElasticsearchModule } from '@nestjs/elasticsearch';
   ResponseModule,
   VehicleModule,
   FilesModule,
+  SearchModule,
   PromoCodeModule,
-  ElasticsearchModule,
+  
 
 ],
   controllers: [AppController, VehicleController, DriverController, ResponseController, FilesController, PromoCodeController],
-  providers: [AppService, DriverService, VehicleService, ResponseService, PromoCodeService, PromoSearchService],
+  providers: [AppService, DriverService, VehicleService, ResponseService, PromoSearchService, PromoCodeService],
 })
 export class AppModule {}

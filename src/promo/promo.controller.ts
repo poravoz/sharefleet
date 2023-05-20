@@ -14,16 +14,10 @@ export class PromoCodeController {
   @Get()
   async getPosts(@Query('search') search: string) {
     if (search) {
-      return this.promoCodeService.searchForPosts(search);
+      return this.promoCodeService.searchForPromoCodes(search);
     }
     return this.promoCodeService.getPromoCode();
   }
-  
-
-    @Get()
-    async findPromoCode() {
-        return await this.promoCodeService.getPromoCode();
-    }
 
     @Get(':id')
     async findPromoCodeById(@Param('id') id: number) {
