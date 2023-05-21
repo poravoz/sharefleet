@@ -27,7 +27,6 @@ import { PromoCodeModule } from './promo/promo.module';
 import { PromoCodeService } from './promo/promo.service';
 import { PromoCodeController } from './promo/promo.controller';
 import { PromoSearchService } from "./promo/promoSearch.service";
-import { ElasticsearchModule } from '@nestjs/elasticsearch';
 import { SearchModule } from './search/search.module';
 
 @Module({
