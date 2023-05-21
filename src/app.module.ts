@@ -27,6 +27,9 @@ import { FilesController } from './files/files.controller';
 
 @Module({
   imports: [ ConfigModule.forRoot({
+    isGlobal: true,
+    envFilePath: './.env',
+    
     validationSchema: Joi.object({
       POSTGRES_HOST: Joi.string().required(),
       POSTGRES_PORT: Joi.number().required(),
