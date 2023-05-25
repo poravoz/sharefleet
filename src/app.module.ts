@@ -50,6 +50,9 @@ import { SearchModule } from './search/search.module';
       AWS_SECRET_ACCESS_KEY: Joi.string().required(),
       AWS_PUBLIC_BUCKET_NAME: Joi.string().required(),
       PORT: Joi.number(),
+      ELASTICSEARCH_NODE: Joi.string(),
+      ELASTICSEARCH_USERNAME: Joi.string(),
+      ELASTICSEARCH_PASSWORD: Joi.string(),
     })
   }), 
   DatabaseModule,
@@ -65,7 +68,7 @@ import { SearchModule } from './search/search.module';
   
 
 ],
-  controllers: [AppController, VehicleController, DriverController, ResponseController, FilesController, PromoCodeController],
-  providers: [AppService, DriverService, VehicleService, ResponseService, PromoSearchService, PromoCodeService],
+  controllers: [AppController, VehicleController, DriverController, ResponseController, FilesController],
+  providers: [AppService, DriverService, VehicleService, ResponseService, PromoSearchService],
 })
 export class AppModule {}

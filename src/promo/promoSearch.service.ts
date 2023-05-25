@@ -13,35 +13,26 @@ export class PromoSearchService {
     private readonly elasticsearchService: ElasticsearchService
   ) {}
  
-  async indexPromoCode(promoCode: PromoCode) {
-    return this.elasticsearchService.index<PromoCodeSearchBody>({
-      index: this.index,
-      body: {
-        id: promoCode.id,
-        code: promoCode.code,
-        discount: promoCode.discount,
-        startDate: promoCode.startDate,
-        endDate: promoCode.endDate,
-      }
-    })
-  }
- 
-  async search(text: string) {
+  async search(text: string) { 
+    console.log(text);
+
     const body = await this.elasticsearchService.search({
+      
       index: this.index,
       body: {
         query: {
           multi_match: {
             query: text,
-            fields: ['startDate', 'endDate']
+            fields: ["code"]
           },
         },
       },
     });
+    console.log(body);
     const hits = body.hits.hits;
     const results = new Set();
     hits.map((item) => {
-        results.add(item._source as PromoCodeSearchBody);
+      results.add(item._source as PromoCodeSearchBody); 
     });
     return Array.from(results);
   }

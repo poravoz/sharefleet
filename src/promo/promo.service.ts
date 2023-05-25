@@ -5,7 +5,6 @@ import { PromoCodeExeption } from "./exeprion/promo.exeprion";
 import { InjectRepository } from '@nestjs/typeorm';
 import PromoCodeEntity from "./entity/promo.entity";
 import { PromoSearchService } from "./promoSearch.service";
-import promoCodeSearchResult from "./types/promoSearchBodyInterface";
 
 @Injectable()
 export class PromoCodeService {
@@ -58,6 +57,7 @@ export class PromoCodeService {
     async searchForPromoCodes(text: string) {
         const results = await this.promoCodeSearchService.search(text);
         const ids = results.map((result: PromoCodeEntity) => result.id);
+
         if (!ids.length) {
           return [];
         }
