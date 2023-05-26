@@ -9,8 +9,6 @@ import {v4 as uuidv4 } from 'uuid';
 @UseFilters(new PromoCodeFilter())
 export class PromoCodeController {
     constructor(private readonly promoCodeService: PromoCodeService) {}
-
-
   @Get()
   async getPosts(@Query('search') search: string) {
     if (search) {

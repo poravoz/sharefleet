@@ -1,13 +1,11 @@
 import { Injectable } from '@nestjs/common';
 import { ElasticsearchService } from '@nestjs/elasticsearch';
-import { PromoCode } from './dto/promo.dto';
-import promoCodeSearchResult from './types/postSearchResponse.interface';
 import PromoCodeSearchBody from './types/promoSearchBodyInterface';
-import { Client } from '@elastic/elasticsearch';
+
  
 @Injectable()
 export class PromoSearchService {
-  index = 'promoCodes'
+  index = 'promo-codes'
  
   constructor(
     private readonly elasticsearchService: ElasticsearchService
@@ -22,7 +20,7 @@ export class PromoSearchService {
             multi_match: {
               query: text,
               fields: "code",
-            }, 
+            },
           },
         },
       });
