@@ -1,9 +1,11 @@
 window.addEventListener('load', function() {
-    const imageData = localStorage.getItem('image');
-    if (imageData) {
-        const { url, id } = JSON.parse(imageData);
+    const imagesData = localStorage.getItem('images');
+    if (imagesData) {
+        const images = JSON.parse(imagesData);
 
-        if (url) {
+        images.forEach(imageData => {
+            const { url, id } = imageData;
+
             const container = document.createElement("div");
 
             const imageElement = document.createElement('img');
@@ -13,27 +15,40 @@ window.addEventListener('load', function() {
             deleteButton.innerText = "Delete File";
             deleteButton.classList.add("deleteButton");
             deleteButton.addEventListener("click", function() {
-                fetch(`http://localhost:5433/user/deletefile/${id}`, {
-                    method: "DELETE"
-                })
-                .then(response => {
-                    if (response.ok) {
-                        container.remove();
-                        console.log("File deleted");
-                    } else {
-                        console.error("Failed to delete file");
-                    }
-                })
-                .catch(error => {
-                    console.error("Error: ", error);
-                });
+                // Проверка наличия изображения перед удалением
+                if (imageElement.complete && imageElement.naturalWidth > 0) {
+                    fetch(`http://localhost:5433/user/deletefile/${id}`, {
+                        method: "DELETE"
+                    })
+                    .then(response => {
+                        if (response.ok) {
+                            container.remove();
+                            console.log("File deleted");
+                            // Удаление изображения из массива images
+                            const updatedImages = images.filter(image => image.id !== id);
+                            localStorage.setItem('images', JSON.stringify(updatedImages));
+                        } else {
+                            console.error("Failed to delete file");
+                        }
+                    })
+                    .catch(error => {
+                        console.error("Error: ", error);
+                    });
+                } else {
+                    console.log("Image not found. Skipping deletion.");
+                    // Удаление контейнера изображения
+                    container.remove();
+                    // Удаление изображения из массива images
+                    const updatedImages = images.filter(image => image.id !== id);
+                    localStorage.setItem('images', JSON.stringify(updatedImages));
+                }
             });
 
             container.appendChild(imageElement);
             container.appendChild(deleteButton);
 
             document.getElementById('imageContainer').appendChild(container);
-        }
+        });
     }
 });
 
@@ -54,7 +69,15 @@ document.getElementById("uploadButton").addEventListener("click", function() {
             const imageUrl = data.url;
             const fileId = data.id;
 
-            localStorage.setItem('image', JSON.stringify({ url: imageUrl, id: fileId }));
+            // Добавление нового изображения в массив images
+            const imagesData = localStorage.getItem('images');
+            let images = [];
+            if (imagesData) {
+                images = JSON.parse(imagesData);
+            }
+            const newImage = { url: imageUrl, id: fileId };
+            images.push(newImage);
+            localStorage.setItem('images', JSON.stringify(images));
 
             const imageElement = document.createElement("img");
             imageElement.src = imageUrl;
@@ -75,6 +98,9 @@ document.getElementById("uploadButton").addEventListener("click", function() {
                         imageElement.remove();
                         deleteButton.remove();
                         console.log("File deleted");
+                        // Удаление изображения из массива images
+                        const updatedImages = images.filter(image => image.id !== fileId);
+                        localStorage.setItem('images', JSON.stringify(updatedImages));
                     } else {
                         console.error("Failed to delete file");
                     }
