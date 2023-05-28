@@ -89,7 +89,6 @@ if (imageData) {
 
         document.getElementById('imageContainer').appendChild(container);
     } else {
-        const errorText = document.createElement("p");
         document.getElementById('imageContainer').appendChild(errorText);
     }
 }
