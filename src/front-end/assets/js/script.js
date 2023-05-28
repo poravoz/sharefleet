@@ -1,3 +1,42 @@
+window.addEventListener('load', function() {
+    const imageData = localStorage.getItem('image');
+    if (imageData) {
+        const { url, id } = JSON.parse(imageData);
+
+        if (url) {
+            const container = document.createElement("div");
+
+            const imageElement = document.createElement('img');
+            imageElement.src = url;
+
+            const deleteButton = document.createElement("button");
+            deleteButton.innerText = "Delete File";
+            deleteButton.classList.add("deleteButton");
+            deleteButton.addEventListener("click", function() {
+                fetch(`http://localhost:5433/user/deletefile/${id}`, {
+                    method: "DELETE"
+                })
+                .then(response => {
+                    if (response.ok) {
+                        container.remove();
+                        console.log("File deleted");
+                    } else {
+                        console.error("Failed to delete file");
+                    }
+                })
+                .catch(error => {
+                    console.error("Error: ", error);
+                });
+            });
+
+            container.appendChild(imageElement);
+            container.appendChild(deleteButton);
+
+            document.getElementById('imageContainer').appendChild(container);
+        }
+    }
+});
+
 document.getElementById("uploadButton").addEventListener("click", function() {
     const fileInput = document.getElementById("fileInput");
     const file = fileInput.files[0];
@@ -54,41 +93,3 @@ document.getElementById("uploadButton").addEventListener("click", function() {
         console.error("No file selected");
     }
 });
-
-const imageData = localStorage.getItem('image');
-if (imageData) {
-    const { url, id } = JSON.parse(imageData);
-
-    if (!url) {
-        const container = document.createElement("div");
-
-        const imageElement = document.createElement('img');
-        imageElement.src = url;
-
-        const deleteButton = document.createElement("button");
-        deleteButton.innerText = "Delete File";
-        deleteButton.addEventListener("click", function() {
-            fetch(`http://localhost:5433/user/deletefile/${id}`, {
-                method: "DELETE"
-            })
-            .then(response => {
-                if (response.ok) {
-                    container.remove();
-                    console.log("File deleted");
-                } else {
-                    console.error("Failed to delete file");
-                }
-            })
-            .catch(error => {
-                console.error("Error: ", error);
-            });
-        });
-
-        container.appendChild(imageElement);
-        container.appendChild(deleteButton);
-
-        document.getElementById('imageContainer').appendChild(container);
-    } else {
-        document.getElementById('imageContainer').appendChild(errorText);
-    }
-}

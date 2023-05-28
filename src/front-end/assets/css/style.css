@@ -6,6 +6,7 @@
     border-radius: 4px;
     cursor: pointer;
     font-size: 24px;
+    vertical-align: top;
 }
 
 .uploadButton:hover {
@@ -26,6 +27,7 @@
     border-radius: 4px;
     cursor: pointer;
     font-size: 24px;
+    vertical-align: top;
   }
 
   .deleteButton {
@@ -37,6 +39,9 @@
     border-radius: 4px;
     cursor: pointer;
     margin-top: 10px;
+    align-self: flex-start;
+    margin-right: 15px;
+    transform: translateX(-185%);
   }
   
   .deleteButton:hover {
@@ -44,7 +49,9 @@
   }
 
   .imageContainer {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+    position: relative;
+    display: inline-block;
+    text-align: left;
+    margin-top: 100px;
+    max-width: 1500px;
   }
