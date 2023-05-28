@@ -6,6 +6,7 @@ import RequestWithUser from '../auth/interfaces/requestWithUser.interface';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { FilesService } from 'src/files/files.service';
 import { AuthGuard } from '@nestjs/passport';
+import PublicFile from 'src/files/publicFile.entity';
 
 @Controller('user')
 export class UserController {
@@ -31,8 +32,6 @@ export class UserController {
   delete(@Param('id') id: number) {
     return this.userService.delete(id);
   }
-
-
 
   @Post('uploadfile')
   @UseInterceptors(FileInterceptor('file'))
