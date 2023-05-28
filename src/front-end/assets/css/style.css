@@ -1,0 +1,33 @@
+.uploadButton {
+    padding: 10px 20px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 24px;
+}
+
+.uploadButton:hover {
+    background-color: #45a049;
+}
+
+
+.fileInput {
+    display: none;
+  }
+  
+  .fileInputLabel {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 24px;
+  }
+  
+  .fileInputLabel:hover {
+    background-color: #45a049;
+  }
