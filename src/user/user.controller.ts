@@ -36,7 +36,7 @@ export class UserController {
 
   @Post('uploadfile')
   @UseInterceptors(FileInterceptor('file'))
-  async uploadPublicFile(@UploadedFile() file: Express.Multer.File, @Body() body: any) {
+  async uploadPublicFile(@UploadedFile() file: Express.Multer.File) {
     if (!file) {
       throw new BadRequestException('File is missing');
     }

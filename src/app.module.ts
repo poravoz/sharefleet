@@ -65,6 +65,7 @@ import { SearchModule } from './search/search.module';
   FilesModule,
   SearchModule,
   PromoCodeModule,
+
   
 
 ],

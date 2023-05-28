@@ -81,8 +81,8 @@ export class VehicleService {
 
 
     
-    getHello(): string {
-      return 'Hello World!';
+    async getHello() {
+      return await 'Hello World!';
     }
 
 }
