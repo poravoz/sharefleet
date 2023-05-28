@@ -17,7 +17,7 @@
     display: none;
   }
   
-  .fileInputLabel {
+.fileInputLabel {
     display: inline-block;
     padding: 10px 20px;
     background-color: #4CAF50;
@@ -27,7 +27,17 @@
     cursor: pointer;
     font-size: 24px;
   }
+
+  .deleteButton {
+    margin-top: 10px;
+    background-color: #ff0000;
+    color: #ffffff;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 4px;
+    cursor: pointer;
+  }
   
-  .fileInputLabel:hover {
-    background-color: #45a049;
+  .deleteButton:hover {
+    background-color: #ff5555;
   }

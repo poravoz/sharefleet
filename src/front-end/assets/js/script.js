@@ -26,6 +26,7 @@ document.getElementById("uploadButton").addEventListener("click", function() {
 
             const deleteButton = document.createElement("button");
             deleteButton.innerText = "Delete File";
+            deleteButton.classList.add("deleteButton");
             deleteButton.addEventListener("click", function() {
                 fetch(`http://localhost:5433/user/deletefile/${fileId}`, {
                     method: "DELETE"
