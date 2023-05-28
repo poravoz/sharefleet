@@ -43,7 +43,7 @@ export class UserController {
     return avatar;
   }
 
-  @Delete('uploadfile/:id')
+  @Delete('deletefile/:id')
   async deletePublicFile(@Param('id') id: string): Promise<void> {
     await this.fileService.deletePublicFile(id);
   }

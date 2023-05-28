@@ -13,8 +13,9 @@ document.getElementById("uploadButton").addEventListener("click", function() {
         .then(response => response.json())
         .then(data => {
             const imageUrl = data.url;
+            const fileId = data.id;
 
-            localStorage.setItem('image', imageUrl);
+            localStorage.setItem('image', JSON.stringify({ url: imageUrl, id: fileId }));
 
             const imageElement = document.createElement("img");
             imageElement.src = imageUrl;
@@ -22,6 +23,28 @@ document.getElementById("uploadButton").addEventListener("click", function() {
 
             const imageContainer = document.getElementById("imageContainer");
             imageContainer.appendChild(imageElement);
+
+            const deleteButton = document.createElement("button");
+            deleteButton.innerText = "Delete File";
+            deleteButton.addEventListener("click", function() {
+                fetch(`http://localhost:5433/user/deletefile/${fileId}`, {
+                    method: "DELETE"
+                })
+                .then(response => {
+                    if (response.ok) {
+                        imageElement.remove();
+                        deleteButton.remove();
+                        console.log("File deleted");
+                    } else {
+                        console.error("Failed to delete file");
+                    }
+                })
+                .catch(error => {
+                    console.error("Error: ", error);
+                });
+            });
+
+            imageContainer.appendChild(deleteButton);
         })
         .catch(error => {
             console.error("Error: ", error);
@@ -31,9 +54,41 @@ document.getElementById("uploadButton").addEventListener("click", function() {
     }
 });
 
-const imageUrl = localStorage.getItem('image');
-if (imageUrl) {
-    const imageElement = document.createElement('img');
-    imageElement.src = imageUrl;
-    document.getElementById('imageContainer').appendChild(imageElement);
+const imageData = localStorage.getItem('image');
+if (imageData) {
+    const { url, id } = JSON.parse(imageData);
+
+    if (!url) {
+        const container = document.createElement("div");
+
+        const imageElement = document.createElement('img');
+        imageElement.src = url;
+
+        const deleteButton = document.createElement("button");
+        deleteButton.innerText = "Delete File";
+        deleteButton.addEventListener("click", function() {
+            fetch(`http://localhost:5433/user/deletefile/${id}`, {
+                method: "DELETE"
+            })
+            .then(response => {
+                if (response.ok) {
+                    container.remove();
+                    console.log("File deleted");
+                } else {
+                    console.error("Failed to delete file");
+                }
+            })
+            .catch(error => {
+                console.error("Error: ", error);
+            });
+        });
+
+        container.appendChild(imageElement);
+        container.appendChild(deleteButton);
+
+        document.getElementById('imageContainer').appendChild(container);
+    } else {
+        const errorText = document.createElement("p");
+        document.getElementById('imageContainer').appendChild(errorText);
+    }
 }
