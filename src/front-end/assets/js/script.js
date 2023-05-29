@@ -15,7 +15,6 @@ window.addEventListener('load', function() {
             deleteButton.innerText = "Delete File";
             deleteButton.classList.add("deleteButton");
             deleteButton.addEventListener("click", function() {
-                // Проверка наличия изображения перед удалением
                 if (imageElement.complete && imageElement.naturalWidth > 0) {
                     fetch(`http://localhost:5433/user/deletefile/${id}`, {
                         method: "DELETE"
@@ -24,7 +23,6 @@ window.addEventListener('load', function() {
                         if (response.ok) {
                             container.remove();
                             console.log("File deleted");
-                            // Удаление изображения из массива images
                             const updatedImages = images.filter(image => image.id !== id);
                             localStorage.setItem('images', JSON.stringify(updatedImages));
                         } else {
@@ -36,9 +34,7 @@ window.addEventListener('load', function() {
                     });
                 } else {
                     console.log("Image not found. Skipping deletion.");
-                    // Удаление контейнера изображения
                     container.remove();
-                    // Удаление изображения из массива images
                     const updatedImages = images.filter(image => image.id !== id);
                     localStorage.setItem('images', JSON.stringify(updatedImages));
                 }
@@ -68,8 +64,6 @@ document.getElementById("uploadButton").addEventListener("click", function() {
         .then(data => {
             const imageUrl = data.url;
             const fileId = data.id;
-
-            // Добавление нового изображения в массив images
             const imagesData = localStorage.getItem('images');
             let images = [];
             if (imagesData) {
@@ -98,7 +92,6 @@ document.getElementById("uploadButton").addEventListener("click", function() {
                         imageElement.remove();
                         deleteButton.remove();
                         console.log("File deleted");
-                        // Удаление изображения из массива images
                         const updatedImages = images.filter(image => image.id !== fileId);
                         localStorage.setItem('images', JSON.stringify(updatedImages));
                     } else {
