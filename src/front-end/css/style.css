@@ -1,0 +1,86 @@
+body:before {
+  content: "";
+  display: block;
+  position: fixed;
+  top: 50%;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background-color: #999999;
+  z-index: 9999;
+}
+
+.uploadButton {
+  padding: 10px 20px;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 24px;
+  vertical-align: top;
+}
+
+.uploadButton:hover {
+  background-color: #45a049;
+}
+
+.fileInput {
+  display: none;
+}
+
+.fileInputLabel {
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 24px;
+  vertical-align: top;
+}
+
+.deleteButton {
+  margin-top: 10px;
+  background-color: #ff0000;
+  color: #ffffff;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+  transform: translateX(-170%);
+  margin-top: -280px;
+}
+
+.deleteButton:hover {
+  background-color: #ff5555;
+}
+
+.imageContainer {
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  margin-top: 100px;
+  max-width: 1500px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+
+.link_to_2 {
+  color: #222; 
+  text-decoration: none; 
+  font-size: 24px;
+  position: fixed;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.link_to_2 :hover {
+    opacity: 0.5;
+}
+
