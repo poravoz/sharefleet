@@ -14,30 +14,10 @@ window.addEventListener('load', function() {
             const deleteButton = document.createElement("button");
             deleteButton.innerText = "Delete File";
             deleteButton.classList.add("deleteButton");
+            deleteButton.setAttribute("data-id", id); 
             deleteButton.addEventListener("click", function() {
-                if (imageElement.complete && imageElement.naturalWidth > 0) {
-                    fetch(`http://localhost:5433/user/deletefile/${id}`, {
-                        method: "DELETE"
-                    })
-                    .then(response => {
-                        if (response.ok) {
-                            container.remove();
-                            console.log("File deleted");
-                            const updatedImages = images.filter(image => image.id !== id);
-                            localStorage.setItem('images', JSON.stringify(updatedImages));
-                        } else {
-                            console.error("Failed to delete file");
-                        }
-                    })
-                    .catch(error => {
-                        console.error("Error: ", error);
-                    });
-                } else {
-                    console.log("Image not found. Skipping deletion.");
-                    container.remove();
-                    const updatedImages = images.filter(image => image.id !== id);
-                    localStorage.setItem('images', JSON.stringify(updatedImages));
-                }
+                const clickedId = this.getAttribute("data-id"); 
+                deleteImage(clickedId); 
             });
 
             container.appendChild(imageElement);
@@ -50,6 +30,7 @@ window.addEventListener('load', function() {
 document.getElementById("uploadButton").addEventListener("click", function() {
     const fileInput = document.getElementById("fileInput");
     const file = fileInput.files[0];
+
     if (file) {
         const formData = new FormData();
         formData.append("file", file);
@@ -67,6 +48,12 @@ document.getElementById("uploadButton").addEventListener("click", function() {
             if (imagesData) {
                 images = JSON.parse(imagesData);
             }
+
+            if (images.length >= 4) {
+                console.log("Max file count reached");
+                return;
+            }
+
             const newImage = { url: imageUrl, id: fileId };
             images.push(newImage);
             localStorage.setItem('images', JSON.stringify(images));
@@ -77,38 +64,15 @@ document.getElementById("uploadButton").addEventListener("click", function() {
             const deleteButton = document.createElement("button");
             deleteButton.innerText = "Delete File";
             deleteButton.classList.add("deleteButton");
+            deleteButton.setAttribute("data-id", fileId); 
             deleteButton.addEventListener("click", function() {
-                fetch(`http://localhost:5433/user/deletefile/${fileId}`, {
-                    method: "DELETE"
-                })
-                .then(response => {
-                    if (response.ok) {
-                        imageElement.remove();
-                        deleteButton.remove();
-                        console.log("File deleted");
-                        const updatedImages = images.filter(image => image.id !== fileId);
-                        localStorage.setItem('images', JSON.stringify(updatedImages));
-                    } else {
-                        console.error("Failed to delete file");
-                    }
-                })
-                .catch(error => {
-                    console.error("Error: ", error);
-                });
+                const clickedId = this.getAttribute("data-id"); 
+                deleteImage(clickedId); 
             });
 
             const imageContainer = document.getElementById("imageContainer");
             imageContainer.appendChild(imageElement);
             imageContainer.appendChild(deleteButton);
-
-            const allImageContainers = imageContainer.querySelectorAll('div');
-            const updatedImages = [];
-            allImageContainers.forEach(container => {
-                const imageSrc = container.querySelector('img').src;
-                const imageId = container.querySelector('.deleteButton').getAttribute('data-id');
-                updatedImages.push({ url: imageSrc, id: imageId });
-            });
-            localStorage.setItem('images', JSON.stringify(updatedImages));
         })
         .catch(error => {
             console.error("Error: ", error);
@@ -117,3 +81,23 @@ document.getElementById("uploadButton").addEventListener("click", function() {
         console.error("No file selected");
     }
 });
+
+function deleteImage(id) {
+    const imagesData = localStorage.getItem('images');
+    if (imagesData) {
+        const images = JSON.parse(imagesData);
+        const updatedImages = images.filter(image => image.id !== id);
+        localStorage.setItem('images', JSON.stringify(updatedImages));
+    }
+    const imageContainer = document.getElementById("imageContainer");
+    const imageElement = imageContainer.querySelector(`[data-id="${id}"]`).previousElementSibling;
+    const deleteButton = imageContainer.querySelector(`[data-id="${id}"]`);
+    if (imageElement) {
+        imageElement.remove();
+    }
+    if (deleteButton) {
+        deleteButton.remove();
+    }
+}
+
+

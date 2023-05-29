@@ -1,68 +1,58 @@
 .uploadButton {
-    padding: 10px 20px;
-    background-color: #4CAF50;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 24px;
-    vertical-align: top;
+  padding: 10px 20px;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 24px;
+  vertical-align: top;
 }
 
 .uploadButton:hover {
-    background-color: #45a049;
+  background-color: #45a049;
 }
 
-
 .fileInput {
-    display: none;
-  }
-  
+  display: none;
+}
+
 .fileInputLabel {
-    display: inline-block;
-    padding: 10px 20px;
-    background-color: #4CAF50;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 24px;
-    vertical-align: top;
-  }
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 24px;
+  vertical-align: top;
+}
 
-  .deleteButton {
-    margin-top: 10px;
-    background-color: #ff0000;
-    color: #ffffff;
-    border: none;
-    padding: 8px 16px;
-    border-radius: 4px;
-    cursor: pointer;
-    margin-top: 10px;
-    align-self: flex-start;
-    margin-right: 15px;
-    transform: translateX(-185%);
-  }
-  
-  .deleteButton:hover {
-    background-color: #ff5555;
-  }
+.deleteButton {
+  margin-top: 10px;
+  background-color: #ff0000;
+  color: #ffffff;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+  transform: translateX(-170%);
+}
 
-  .imageContainer {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    align-items: center;
-  }
-  
-  .imageContainer > div {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin: 10px;
-  }
-  
-  .imageContainer img {
-    max-width: 250px;
-    max-height: 250px;
-  }
+.deleteButton:hover {
+  background-color: #ff5555;
+}
+
+.imageContainer {
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  margin-top: 100px;
+  max-width: 1500px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
