@@ -2,10 +2,10 @@ window.addEventListener('load', function() {
     const imagesData = localStorage.getItem('images');
     if (imagesData) {
         const images = JSON.parse(imagesData);
+        const imageContainer = document.getElementById('imageContainer');
 
         images.forEach(imageData => {
             const { url, id } = imageData;
-
             const container = document.createElement("div");
 
             const imageElement = document.createElement('img');
@@ -42,8 +42,7 @@ window.addEventListener('load', function() {
 
             container.appendChild(imageElement);
             container.appendChild(deleteButton);
-
-            document.getElementById('imageContainer').appendChild(container);
+            imageContainer.appendChild(container);
         });
     }
 });
@@ -51,7 +50,6 @@ window.addEventListener('load', function() {
 document.getElementById("uploadButton").addEventListener("click", function() {
     const fileInput = document.getElementById("fileInput");
     const file = fileInput.files[0];
-
     if (file) {
         const formData = new FormData();
         formData.append("file", file);
@@ -75,10 +73,6 @@ document.getElementById("uploadButton").addEventListener("click", function() {
 
             const imageElement = document.createElement("img");
             imageElement.src = imageUrl;
-            console.log(data);
-
-            const imageContainer = document.getElementById("imageContainer");
-            imageContainer.appendChild(imageElement);
 
             const deleteButton = document.createElement("button");
             deleteButton.innerText = "Delete File";
@@ -103,7 +97,18 @@ document.getElementById("uploadButton").addEventListener("click", function() {
                 });
             });
 
+            const imageContainer = document.getElementById("imageContainer");
+            imageContainer.appendChild(imageElement);
             imageContainer.appendChild(deleteButton);
+
+            const allImageContainers = imageContainer.querySelectorAll('div');
+            const updatedImages = [];
+            allImageContainers.forEach(container => {
+                const imageSrc = container.querySelector('img').src;
+                const imageId = container.querySelector('.deleteButton').getAttribute('data-id');
+                updatedImages.push({ url: imageSrc, id: imageId });
+            });
+            localStorage.setItem('images', JSON.stringify(updatedImages));
         })
         .catch(error => {
             console.error("Error: ", error);
