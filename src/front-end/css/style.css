@@ -75,3 +75,9 @@
     opacity: 0.5;
 }
 
+.maskOverlay {
+  position: absolute;
+  z-index: 3;
+  transform: translateX(-140%);
+}
+
