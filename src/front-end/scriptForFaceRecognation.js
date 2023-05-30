@@ -1,10 +1,10 @@
 const video = document.getElementById('video');
 
 Promise.all([
-  faceapi.nets.tinyFaceDetector.loadFromUri('./models'),
-  faceapi.nets.faceLandmark68Net.loadFromUri('./models'),
-  faceapi.nets.faceRecognitionNet.loadFromUri('./models'),
-  faceapi.nets.faceExpressionNet.loadFromUri('./models')
+  faceapi.loadFaceDetectionModel('./models'),
+  faceapi.loadFaceLandmarkModel('./models'),
+  faceapi.loadFaceRecognitionModel('./models'),
+  faceapi.loadFaceExpressionModel('./models')
 ]).then(startVideo);
 
 function startVideo() {
@@ -16,7 +16,7 @@ function startVideo() {
         document.body.append(canvas);
         const displaySize = { width: video.width, height: video.height };
         setInterval(async () => {
-          const detections = await faceapi.detectAllFaces(video, new faceapi.TinyFaceDetectorOptions()).withFaceLandmarks().withFaceExpressions();
+          const detections = await faceapi.detectAllFaces(video).withFaceLandmarks().withFaceExpressions().withFaceDescriptors();
           const resizedDetections = faceapi.resizeResults(detections, displaySize);
           canvas.getContext('2d').clearRect(0, 0, canvas.width, canvas.height);
           faceapi.draw.drawDetections(canvas, resizedDetections);
@@ -46,7 +46,7 @@ function sendDataToBackend(data) {
   })
     .then(response => {
       if (response.ok) {
-       console.log('Face coordinates sent to the backend successfully');
+        console.log('Face coordinates sent to the backend successfully');
       } else {
         console.error('Failed to send face coordinates to the backend');
       }
