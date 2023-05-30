@@ -3,7 +3,7 @@ import { Body } from '@nestjs/common';
 
 @Injectable()
 export class FaceControllerService {
-  handleFaceCoordinates(@Body() faceCoordinates: any) {
+  handleFaceCoordinates(@Body() faceCoordinates: number) {
     //console.log('Received face coordinates:', faceCoordinates);
     return 'Face coordinates received';
   }
