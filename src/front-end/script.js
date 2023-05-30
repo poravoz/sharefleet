@@ -4,12 +4,18 @@ window.addEventListener('load', function() {
         const images = JSON.parse(imagesData);
         const imageContainer = document.getElementById('imageContainer');
 
-        images.forEach(imageData => {
+        images.forEach((imageData, index) => {
             const { url, id } = imageData;
             const container = document.createElement("div");
 
             const imageElement = document.createElement('img');
             imageElement.src = url;
+            imageElement.addEventListener("load", function() {
+                const imageRect = imageElement.getBoundingClientRect();
+                const centerX = imageRect.left + imageRect.width / 2;
+                const centerY = imageRect.top + imageRect.height / 2;
+                console.log("Image", index + 1, "Center Coordinates - X:", centerX, "Y:", centerY);
+            });
 
             const deleteButton = document.createElement("button");
             deleteButton.innerText = "Delete File";
@@ -60,6 +66,12 @@ document.getElementById("uploadButton").addEventListener("click", function() {
 
             const imageElement = document.createElement("img");
             imageElement.src = imageUrl;
+            imageElement.addEventListener("load", function() {
+                const imageRect = imageElement.getBoundingClientRect();
+                const centerX = imageRect.left + imageRect.width / 2;
+                const centerY = imageRect.top + imageRect.height / 2;
+                console.log("Image", images.length, "Center Coordinates - X:", centerX, "Y:", centerY);
+            });
 
             const deleteButton = document.createElement("button");
             deleteButton.innerText = "Delete File";
@@ -99,5 +111,3 @@ function deleteImage(id) {
         deleteButton.remove();
     }
 }
-
-
