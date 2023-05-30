@@ -1,7 +1,3 @@
-  canvas {
-    position: absolute;
-  }
-
 .uploadButton {
   padding: 10px 20px;
   background-color: #4CAF50;
@@ -34,15 +30,13 @@
 }
 
 .deleteButton {
-  margin-top: 10px;
   background-color: #ff0000;
   color: #ffffff;
   border: none;
   padding: 8px 16px;
   border-radius: 4px;
   cursor: pointer;
-  transform: translateX(-170%);
-  margin-top: -280px;
+  transform: translate(-185%, 80%);
 }
 
 .deleteButton:hover {
@@ -61,7 +55,6 @@
   margin-right: auto;
 }
 
-
 .link_to_2 {
   color: #222; 
   text-decoration: none; 
@@ -70,6 +63,12 @@
   bottom: 0;
   left: 50%;
   transform: translateX(-50%);
+}
+
+.face-api-canvas {
+  position: absolute;
+  z-index: 2;
+  transform: translateX(-140%);
 }
 
 .link_to_2 :hover {
