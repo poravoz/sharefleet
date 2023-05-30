@@ -28,6 +28,9 @@ import { PromoCodeService } from './promo/promo.service';
 import { PromoCodeController } from './promo/promo.controller';
 import { PromoSearchService } from "./promo/promoSearch.service";
 import { SearchModule } from './search/search.module';
+import { FaceControllerService } from './face/face.service';
+import { FaceController } from './face/face.controller';
+import { FaceModule } from './face/face.module';
 
 @Module({
   imports: [
@@ -65,11 +68,12 @@ import { SearchModule } from './search/search.module';
   FilesModule,
   SearchModule,
   PromoCodeModule,
+  FaceModule,
 
   
 
 ],
-  controllers: [AppController, VehicleController, DriverController, ResponseController, FilesController],
-  providers: [AppService, DriverService, VehicleService, ResponseService, PromoSearchService],
+  controllers: [AppController, VehicleController, DriverController, ResponseController, FilesController, FaceController],
+  providers: [AppService, DriverService, VehicleService, ResponseService, PromoSearchService, FaceControllerService],
 })
 export class AppModule {}
