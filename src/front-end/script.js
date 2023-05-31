@@ -53,15 +53,15 @@ Promise.all([
         faceapi.matchDimensions(canvas, displaySize);
         const detections = await faceapi.detectAllFaces(image).withFaceLandmarks().withFaceDescriptors();
         const resizedDetections = faceapi.resizeResults(detections, displaySize);
-        resizedDetections.forEach(async (detection) => {
+        await Promise.all(resizedDetections.map(async (detection, index) => {
           const box = detection.detection.box;
           const drawBox = new faceapi.draw.DrawBox(box, { label: 'Darkness man' });
           drawBox.draw(canvas);
         
           const faceCoordinates = extractFaceCoordinates(detection);
-          await sendFaceCordinateToBackend(faceCoordinates); 
-            
-        });
+          await sendFaceCordinateToBackend(faceCoordinates, index + 1);
+  
+        }));
         canvas.classList.add('face-api-canvas');
         container.appendChild(canvas);
   
@@ -149,31 +149,32 @@ function deleteImage(id) {
     }
 }
 
-function sendFaceCordinateToBackend(data) {
+const sendFaceCordinateToBackend = async (data, index) => {
   const faceType = determineFaceType(data);
   const payload = {
     ...data,
     type: faceType,
+    index: index
   };
 
-  fetch('http://localhost:5433/api/face-coordinates', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify(payload)
-  })
-    .then(response => {
-      if (response.ok) {
-        console.log('Face coordinates sent to the backend successfully');
-      } else {
-        console.error('Failed to send face coordinates to the backend');
-      }
-    })
-    .catch(error => {
-      console.error('Error sending face coordinates to the backend:', error);
+  try {
+    const response = await fetch('http://localhost:5433/api/face-coordinates', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(payload)
     });
-}
+
+    if (response.ok) {
+      console.log('Face coordinates sent to the backend successfully');
+    } else {
+      console.error('Failed to send face coordinates to the backend');
+    }
+  } catch (error) {
+    console.error('Error sending face coordinates to the backend:', error);
+  }
+};
 
 function determineFaceType(data) {
   const { width, height } = data;
