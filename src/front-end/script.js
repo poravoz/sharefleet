@@ -212,7 +212,10 @@ swappedAllButton.addEventListener('click', async () => {
       container.appendChild(swappedImageElement);
 
       swappedContainer.appendChild(container); 
+      swappedAllButton.disabled = true;
     }
+
+
 
     imageContainer.appendChild(swappedContainer); 
   } catch (error) {
