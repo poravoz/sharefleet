@@ -25,7 +25,7 @@ Promise.all([
         const imageUrl = data.url;
         const fileId = data.id;
   
-        if (images.length >= 4) {
+        if (images.length >= 2) {
           console.log("Max file count reached");
           return;
         }
@@ -137,6 +137,7 @@ function deleteImage(id) {
     const imageElement = imageContainer.querySelector(`[data-id="${id}"]`).previousElementSibling;
     const deleteButton = imageContainer.querySelector(`[data-id="${id}"]`);
     const maskImage = imageContainer.querySelector(`[data-id="${id}"]`).nextElementSibling;
+    const containerSwapped = imageContainer.querySelector(`[data-id="${id}"]`).nextElementSibling.previousElementSibling;
 
     if (imageElement) {
         imageElement.remove();
@@ -146,6 +147,10 @@ function deleteImage(id) {
     }
     if (maskImage) {
         maskImage.remove();
+    }
+
+    if (containerSwapped) {
+      containerSwapped.remove();
     }
 }
 
@@ -182,4 +187,39 @@ function determineFaceType(data) {
   const isEllipse = width / height < 0.8;
   return isEllipse ? 'ellipse' : 'vertical rectangle';
 }
+
+
+const swappedAllButton = document.getElementById('swapped_all');
+swappedAllButton.addEventListener('click', async () => {
+  try {
+    console.log('Количество элементов в массиве:', images.length);
+    const swappedContainer = document.createElement('div'); 
+
+    for (let i = 0; i < images.length; i++) {
+      const image = images[i];
+
+      const originalImageElement = document.createElement('img');
+      originalImageElement.src = image.url;
+      originalImageElement.classList.add('originalImage');
+
+      const container = document.createElement('div');
+      container.appendChild(originalImageElement);
+
+      const swappedImageElement = document.createElement('img');
+      swappedImageElement.src = image.mask;
+      swappedImageElement.classList.add('swappedFace');
+
+      container.appendChild(swappedImageElement);
+
+      swappedContainer.appendChild(container); 
+    }
+
+    imageContainer.appendChild(swappedContainer); 
+  } catch (error) {
+    console.error('Ошибка при замене лиц:', error);
+  }
+});
+
+
+
 

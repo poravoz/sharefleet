@@ -44,7 +44,6 @@
 }
 
 .imageContainer {
-  position: relative;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
@@ -56,13 +55,20 @@
 }
 
 .link_to_2 {
-  color: #222; 
-  text-decoration: none; 
+  color: #222;
+  text-decoration: none;
   font-size: 24px;
   position: fixed;
   bottom: 0;
   left: 50%;
   transform: translateX(-50%);
+}
+
+.swapped_all {
+  position: absolute;
+  font-size: 24px;
+  left: 20px;
+  bottom: 20px;
 }
 
 .face-api-canvas {
@@ -71,8 +77,8 @@
   transform: translateX(-140%);
 }
 
-.link_to_2 :hover {
-    opacity: 0.5;
+.link_to_2:hover {
+  opacity: 0.5;
 }
 
 .maskOverlay {
@@ -81,3 +87,13 @@
   transform: translateX(-140%);
 }
 
+
+.swappedFace {
+  position: absolute;
+  transform: translate(-140%, 60%);
+}
+
+.originalImage {
+  position: absolute;
+  transform: translate(-140%, 60%);
+}
