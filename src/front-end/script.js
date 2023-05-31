@@ -53,14 +53,14 @@ Promise.all([
         faceapi.matchDimensions(canvas, displaySize);
         const detections = await faceapi.detectAllFaces(image).withFaceLandmarks().withFaceDescriptors();
         const resizedDetections = faceapi.resizeResults(detections, displaySize);
+      
         await Promise.all(resizedDetections.map(async (detection, index) => {
           const box = detection.detection.box;
           const drawBox = new faceapi.draw.DrawBox(box, { label: 'Darkness man' });
           drawBox.draw(canvas);
-        
+      
           const faceCoordinates = extractFaceCoordinates(detection);
           await sendFaceCordinateToBackend(faceCoordinates, index + 1);
-  
         }));
         canvas.classList.add('face-api-canvas');
         container.appendChild(canvas);
