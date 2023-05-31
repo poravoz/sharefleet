@@ -13,9 +13,9 @@ async function blurImage() {
   
     await blurredImage.toFile(outputImagePath);
   
-    console.log('Изображение успешно размыто и сохранено.');
+    console.log('The image is successfully blurred and saved.');
   } catch (error) {
-    console.error('Произошла ошибка при размытии изображения:', error);
+    console.error('An error occurred while blurring the image:', error);
   }
 }
 
