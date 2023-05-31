@@ -6,6 +6,7 @@ import { ConfigService } from '@nestjs/config';
 import { config } from 'aws-sdk';
 import { ExcludeNullInterceptor } from './units/excludeNull.interceptor';
 import { NestExpressApplication } from '@nestjs/platform-express';
+import { MicroserviceOptions, Transport } from '@nestjs/microservices';
 
 async function bootstrap() {
   const app = await NestFactory.create<NestExpressApplication>(AppModule);
@@ -27,6 +28,7 @@ async function bootstrap() {
     allowedHeaders: 'Content-Type',
   });
 
+  app.startAllMicroservices();
   await app.listen(5433);
 }
 bootstrap();

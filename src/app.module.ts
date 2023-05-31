@@ -13,7 +13,7 @@ import { DriverService} from './driver/driver.service';
 import { ResponseModule } from './response/response.module'
 import { ResponseController } from './response/response.controller'
 import { ResponseService } from './response/response.service'
-import { ConfigModule } from '@nestjs/config';
+import { ConfigModule, ConfigService } from '@nestjs/config';
 import * as Joi from "joi";
 
 import { DatabaseModule } from 'src/database/database.module';
@@ -24,8 +24,6 @@ import { HttpModule } from '@nestjs/axios';
 import { FilesModule } from './files/files.module';
 import { FilesController } from './files/files.controller';
 import { PromoCodeModule } from './promo/promo.module';
-import { PromoCodeService } from './promo/promo.service';
-import { PromoCodeController } from './promo/promo.controller';
 import { PromoSearchService } from "./promo/promoSearch.service";
 import { SearchModule } from './search/search.module';
 import { FaceControllerService } from './face/face.service';
@@ -35,6 +33,10 @@ import { FaceModule } from './face/face.module';
 @Module({
   imports: [
     ConfigModule.forRoot({
+      
+      isGlobal: true,
+      envFilePath: './.env',
+
     validationSchema: Joi.object({
       POSTGRES_HOST: Joi.string().required(),
       POSTGRES_PORT: Joi.number().required(),
