@@ -215,8 +215,6 @@ swappedAllButton.addEventListener('click', async () => {
       swappedAllButton.disabled = true;
     }
 
-
-
     imageContainer.appendChild(swappedContainer); 
   } catch (error) {
     console.error('Ошибка при замене лиц:', error);
