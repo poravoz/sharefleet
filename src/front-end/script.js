@@ -192,7 +192,7 @@ function determineFaceType(data) {
 const swappedAllButton = document.getElementById('swapped_all');
 swappedAllButton.addEventListener('click', async () => {
   try {
-    console.log('Количество элементов в массиве:', images.length);
+    console.log('Number of elements in the array:', images.length);
     const swappedContainer = document.createElement('div'); 
 
     for (let i = 0; i < images.length; i++) {
@@ -217,7 +217,7 @@ swappedAllButton.addEventListener('click', async () => {
 
     imageContainer.appendChild(swappedContainer); 
   } catch (error) {
-    console.error('Ошибка при замене лиц:', error);
+    console.error('Error when replacing faces:', error);
   }
 });
 
