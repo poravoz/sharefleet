@@ -46,7 +46,7 @@ Promise.all([
         container.appendChild(imageElement);
         container.appendChild(deleteButton);
         imageContainer.appendChild(container);
-  
+        
         const image = await faceapi.bufferToImage(file);
         const canvas = faceapi.createCanvasFromMedia(image);
         const displaySize = { width: image.width, height: image.height };
