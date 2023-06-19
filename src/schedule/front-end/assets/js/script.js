@@ -43,4 +43,4 @@ fetch('http://localhost:5433/schedule/')
   })
   .catch(error => {
     console.error('Error:', error);
-  });
+  });   
