@@ -10,6 +10,7 @@ import DriverAndVehicleEntity from 'src/driver/entities/driverAndVehicle.entity'
 import { DataSource } from 'typeorm';
 import PublicFile from 'src/files/publicFile.entity';
 import PromoCodeEntity from 'src/promo/entity/promo.entity';
+import { Schedule } from 'src/schedule/back-end/schedule.entity';
  
 @Module({
   imports: [
@@ -35,6 +36,7 @@ import PromoCodeEntity from 'src/promo/entity/promo.entity';
           DataSource,
           PublicFile,
           PromoCodeEntity,
+          Schedule,
         ],
         synchronize: true,
       })}

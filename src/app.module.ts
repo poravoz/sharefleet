@@ -29,6 +29,9 @@ import { SearchModule } from './search/search.module';
 import { FaceControllerService } from './face/face.service';
 import { FaceController } from './face/face.controller';
 import { FaceModule } from './face/face.module';
+import { ScheduleModule } from './schedule/back-end/schedule.module';
+import { ScheduleController } from './schedule/back-end/schedule.controller';
+import { ScheduleService } from './schedule/back-end/schedule.service';
 
 @Module({
   imports: [
@@ -71,6 +74,8 @@ import { FaceModule } from './face/face.module';
   SearchModule,
   PromoCodeModule,
   FaceModule,
+  ScheduleModule,
+
 
   
 
