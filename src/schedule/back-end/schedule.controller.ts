@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Delete, Body, Param } from '@nestjs/common';
+import { Controller, Get, Post, Delete, Put, Body, Param } from '@nestjs/common';
 import { ScheduleService } from './schedule.service';
 import { Schedule } from './schedule.entity';
 
@@ -14,6 +14,11 @@ export class ScheduleController {
   @Post()
   async createSchedules(@Body() createScheduleDtoArray: Schedule[]): Promise<Schedule[]> {
     return this.scheduleService.createSchedules(createScheduleDtoArray);
+  }
+
+  @Put(':id')
+  update(@Param('id') id: number, @Body() updateScheduleDto: Schedule): Promise<Schedule> {
+    return this.scheduleService.update(id, updateScheduleDto);
   }
 
   @Delete(':id')

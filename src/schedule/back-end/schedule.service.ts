@@ -3,7 +3,6 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Schedule } from './schedule.entity';
 import { v4 as uuidv4 } from 'uuid';
-import { number } from 'joi';
 
 @Injectable()
 export class ScheduleService {
@@ -35,6 +34,23 @@ export class ScheduleService {
     }
 
     return createdSchedules;
+  }
+
+  async update(id: number, updateScheduleDto: Schedule): Promise<Schedule> {
+    const schedule = await this.scheduleRepository.findOne( {where: {id}});
+
+    if (!schedule) {
+      throw new Error('Schedule not found');
+    }
+
+    schedule.dayOfWeek = updateScheduleDto.dayOfWeek;
+    schedule.number = updateScheduleDto.number;
+    schedule.time = updateScheduleDto.time;
+    schedule.subjects = updateScheduleDto.subjects;
+    schedule.teachers = updateScheduleDto.teachers;
+    schedule.classroomLinks = updateScheduleDto.classroomLinks;
+
+    return this.scheduleRepository.save(schedule);
   }
 
   async delete(id: number): Promise<void> {
