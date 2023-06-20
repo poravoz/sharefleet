@@ -2,6 +2,7 @@ fetch('http://localhost:5433/schedule/')
   .then(response => response.json())
   .then(data => {
     const table = document.createElement('table');
+    table.style.fontSize = '12px'; // Добавляем стиль для уменьшения шрифта
 
     const thead = document.createElement('thead');
     const headerRow = document.createElement('tr');
@@ -25,7 +26,14 @@ fetch('http://localhost:5433/schedule/')
             const valuesContainer = document.createElement('div');
             value.forEach(item => {
               const valueElement = document.createElement('div');
-              valueElement.textContent = item;
+              if (key === 'classroomLinks') {
+                const link = document.createElement('a');
+                link.href = item;
+                link.textContent = item;
+                valueElement.appendChild(link);
+              } else {
+                valueElement.textContent = item;
+              }
               valuesContainer.appendChild(valueElement);
             });
             cell.appendChild(valuesContainer);
@@ -43,4 +51,4 @@ fetch('http://localhost:5433/schedule/')
   })
   .catch(error => {
     console.error('Error:', error);
-  });   
+  });
