@@ -3,6 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Schedule } from './schedule.entity';
 import { v4 as uuidv4 } from 'uuid';
+import { number } from 'joi';
 
 @Injectable()
 export class ScheduleService {
