@@ -7,7 +7,8 @@ fetch('http://localhost:5433/schedule/')
 
     const thead = document.createElement('thead');
     const headerRow = document.createElement('tr');
-    Object.keys(data[0]).forEach(key => {
+    const columnOrder = ['dayOfWeek', 'time', 'number', 'subjects', 'teachers', 'classroomLinks']; // Измененный порядок столбцов
+    columnOrder.forEach(key => {
       if (key !== 'id') {
         const th = document.createElement('th');
         th.textContent = key;
@@ -49,6 +50,12 @@ fetch('http://localhost:5433/schedule/')
         const timeCell = document.createElement('td');
         timeCell.textContent = i < timeArray.length ? replaceSpecialCharacters(timeArray[i]) : '';
         row.appendChild(timeCell);
+
+        const numberCell = document.createElement('td'); // Создаем ячейку для столбца "number"
+        if (i < numberArray.length) {
+          numberCell.textContent = replaceSpecialCharacters(numberArray[i]);
+        }
+        row.appendChild(numberCell); // Добавляем ячейку "number" в строку
 
         const subjectsCell = document.createElement('td');
         if (i < subjectsArray.length) {
@@ -129,12 +136,6 @@ fetch('http://localhost:5433/schedule/')
           });
         }
         row.appendChild(classroomLinksCell);
-
-        const numbersCell = document.createElement('td');
-        if (i < numberArray.length) {
-          numbersCell.textContent = replaceSpecialCharacters(numberArray[i]);
-        }
-        row.appendChild(numbersCell);
 
         tbody.appendChild(row);
       }
