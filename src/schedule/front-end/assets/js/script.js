@@ -2,6 +2,7 @@ fetch('http://localhost:5433/schedule/')
   .then(response => response.json())
   .then(data => {
     const table = document.createElement('table');
+    table.className = 'schedule-table';
     table.style.fontSize = '12px';
 
     const thead = document.createElement('thead');
@@ -18,7 +19,7 @@ fetch('http://localhost:5433/schedule/')
 
     const tbody = document.createElement('tbody');
 
-    let rowIndex = 0; 
+    let rowIndex = 0;
 
     data.forEach((item) => {
       const timeArray = item.time;
@@ -35,13 +36,13 @@ fetch('http://localhost:5433/schedule/')
           const dayOfWeekCell = document.createElement('td');
           dayOfWeekCell.textContent = item.dayOfWeek;
           dayOfWeekCell.style.textAlign = 'center';
-          const rowspan = maxLength - i; 
+          const rowspan = maxLength - i;
           dayOfWeekCell.rowSpan = rowspan;
           row.appendChild(dayOfWeekCell);
         }
 
         const timeCell = document.createElement('td');
-        timeCell.textContent = i < timeArray.length ? timeArray[i] : '';
+        timeCell.textContent = i < timeArray.length ? replaceSpecialCharacters(timeArray[i]) : '';
         row.appendChild(timeCell);
 
         const subjectsCell = document.createElement('td');
@@ -49,11 +50,10 @@ fetch('http://localhost:5433/schedule/')
           const subjects = subjectsArray[i].split('/');
 
           if (subjects.length === 1) {
-            subjectsCell.textContent = subjects[0].trim();
+            subjectsCell.textContent = replaceSpecialCharacters(subjects[0].trim());
           } else if (subjects.length === 2) {
-            
-            const topText = subjects[0].trim();
-            const bottomText = subjects[1].trim();
+            const topText = replaceSpecialCharacters(subjects[0].trim());
+            const bottomText = replaceSpecialCharacters(subjects[1].trim());
 
             const topSpan = document.createElement('span');
             topSpan.textContent = topText;
@@ -62,11 +62,11 @@ fetch('http://localhost:5433/schedule/')
             subjectsCell.appendChild(document.createElement('br'));
 
             const divider = document.createElement('div');
-            divider.style.borderTop = '2px solid #000'; 
+            divider.style.borderTop = '2px solid #000';
             divider.style.margin = '4px 0';
             subjectsCell.style.paddingLeft = '0px';
-            subjectsCell.style.paddingRight = '0px'
-            
+            subjectsCell.style.paddingRight = '0px';
+
             subjectsCell.appendChild(divider);
 
             const bottomSpan = document.createElement('span');
@@ -74,7 +74,7 @@ fetch('http://localhost:5433/schedule/')
             subjectsCell.appendChild(bottomSpan);
           }
 
-          subjectsCell.style.borderRight = '1px solid #000'; 
+          subjectsCell.style.borderRight = '1px solid #000';
         }
         row.appendChild(subjectsCell);
 
@@ -83,10 +83,10 @@ fetch('http://localhost:5433/schedule/')
           const teachers = teachersArray[i].split('/');
 
           if (teachers.length === 1) {
-            teachersCell.textContent = teachers[0].trim();
+            teachersCell.textContent = replaceSpecialCharacters(teachers[0].trim());
           } else if (teachers.length === 2) {
-            const topText = teachers[0].trim();
-            const bottomText = teachers[1].trim();
+            const topText = replaceSpecialCharacters(teachers[0].trim());
+            const bottomText = replaceSpecialCharacters(teachers[1].trim());
 
             const topSpan = document.createElement('span');
             topSpan.textContent = topText;
@@ -96,8 +96,8 @@ fetch('http://localhost:5433/schedule/')
 
             const divider = document.createElement('div');
             divider.className = 'divider';
-            divider.style.borderTop = '2px solid #000'; 
-            divider.style.margin = '4px 0'; 
+            divider.style.borderTop = '2px solid #000';
+            divider.style.margin = '4px 0';
             teachersCell.appendChild(divider);
 
             const bottomSpan = document.createElement('span');
@@ -105,8 +105,8 @@ fetch('http://localhost:5433/schedule/')
             teachersCell.appendChild(bottomSpan);
           }
 
-          teachersCell.style.borderRight = '1px solid #000'; 
-          teachersCell.style.paddingRight = '0px'; 
+          teachersCell.style.borderRight = '1px solid #000';
+          teachersCell.style.paddingRight = '0px';
           teachersCell.style.paddingLeft = '0px';
         }
         row.appendChild(teachersCell);
@@ -117,7 +117,7 @@ fetch('http://localhost:5433/schedule/')
 
           classroomLinks.forEach(link => {
             const linkElement = document.createElement('a');
-            linkElement.href = link.trim();
+            linkElement.href = replaceSpecialCharacters(link.trim());
             linkElement.textContent = link.trim();
             classroomLinksCell.appendChild(linkElement);
             classroomLinksCell.appendChild(document.createElement('br'));
@@ -127,7 +127,7 @@ fetch('http://localhost:5433/schedule/')
 
         tbody.appendChild(row);
 
-        rowIndex++; 
+        rowIndex++;
       }
     });
     table.appendChild(tbody);
@@ -137,3 +137,11 @@ fetch('http://localhost:5433/schedule/')
   .catch(error => {
     console.error('Error:', error);
   });
+
+function replaceSpecialCharacters(text) {
+  if (/^https?:\/\//.test(text)) {
+    return text; 
+  }
+  
+  return text.replace(/\//g, '─').replace(/\|/g, '│');
+}
