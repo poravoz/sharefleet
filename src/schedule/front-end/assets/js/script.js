@@ -50,10 +50,15 @@ fetch('http://localhost:5433/schedule/')
 
         const classroomLinksCell = document.createElement('td');
         if (i < classroomLinksArray.length) {
-          const link = document.createElement('a');
-          link.href = classroomLinksArray[i];
-          link.textContent = classroomLinksArray[i];
-          classroomLinksCell.appendChild(link);
+          const classroomLinks = classroomLinksArray[i].split(','); // Разделяем ссылки по запятой
+        
+          classroomLinks.forEach(link => {
+            const linkElement = document.createElement('a');
+            linkElement.href = link.trim(); // Удаляем возможные пробелы в ссылке
+            linkElement.textContent = link.trim();
+            classroomLinksCell.appendChild(linkElement);
+            classroomLinksCell.appendChild(document.createElement('br')); // Добавляем перенос строки между ссылками
+          });
         }
         row.appendChild(classroomLinksCell);
 
