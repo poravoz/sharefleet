@@ -17,6 +17,9 @@ fetch('http://localhost:5433/schedule/')
     table.appendChild(thead);
 
     const tbody = document.createElement('tbody');
+
+    let rowIndex = 0; // Счетчик строк
+
     data.forEach((item) => {
       const timeArray = item.time;
       const subjectsArray = item.subjects;
@@ -32,7 +35,8 @@ fetch('http://localhost:5433/schedule/')
           const dayOfWeekCell = document.createElement('td');
           dayOfWeekCell.textContent = item.dayOfWeek;
           dayOfWeekCell.style.textAlign = 'center';
-          dayOfWeekCell.rowSpan = maxLength;
+          const rowspan = maxLength - i; // Вычисляем правильное значение rowspan
+          dayOfWeekCell.rowSpan = rowspan;
           row.appendChild(dayOfWeekCell);
         }
 
@@ -41,7 +45,26 @@ fetch('http://localhost:5433/schedule/')
         row.appendChild(timeCell);
 
         const subjectsCell = document.createElement('td');
-        subjectsCell.textContent = i < subjectsArray.length ? subjectsArray[i] : '';
+        if (i < subjectsArray.length) {
+          const subjects = subjectsArray[i].split('/');
+
+          if (subjects.length === 1) {
+            subjectsCell.textContent = subjects[0].trim();
+          } else if (subjects.length === 2) {
+            const topText = subjects[0].trim();
+            const bottomText = subjects[1].trim();
+
+            const topSpan = document.createElement('span');
+            topSpan.textContent = topText;
+            subjectsCell.appendChild(topSpan);
+
+            subjectsCell.appendChild(document.createElement('br'));
+
+            const bottomSpan = document.createElement('span');
+            bottomSpan.textContent = bottomText;
+            subjectsCell.appendChild(bottomSpan);
+          }
+        }
         row.appendChild(subjectsCell);
 
         const teachersCell = document.createElement('td');
@@ -50,19 +73,21 @@ fetch('http://localhost:5433/schedule/')
 
         const classroomLinksCell = document.createElement('td');
         if (i < classroomLinksArray.length) {
-          const classroomLinks = classroomLinksArray[i].split(','); 
-        
+          const classroomLinks = classroomLinksArray[i].split(',');
+
           classroomLinks.forEach(link => {
             const linkElement = document.createElement('a');
-            linkElement.href = link.trim(); 
+            linkElement.href = link.trim();
             linkElement.textContent = link.trim();
             classroomLinksCell.appendChild(linkElement);
-            classroomLinksCell.appendChild(document.createElement('br')); 
+            classroomLinksCell.appendChild(document.createElement('br'));
           });
         }
         row.appendChild(classroomLinksCell);
 
         tbody.appendChild(row);
+
+        rowIndex++; // Увеличиваем счетчик строк
       }
     });
     table.appendChild(tbody);
