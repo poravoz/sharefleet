@@ -9,9 +9,6 @@ export class Schedule {
   dayOfWeek: string;
 
   @Column('varchar', { array: true })
-  number: number[];
-
-  @Column('varchar', { array: true })
   time: string[];
 
   @Column('varchar', { array: true })
@@ -22,4 +19,7 @@ export class Schedule {
 
   @Column('varchar', { array: true })
   classroomLinks: string[]; 
+
+  @Column('varchar', { array: true })
+  number: number[];
 }

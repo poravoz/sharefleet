@@ -20,11 +20,11 @@ fetch('http://localhost:5433/schedule/')
     const tbody = document.createElement('tbody');
 
     data.forEach((item) => {
-      const timeArray = item.number; 
-      const subjectsArray = item.time; 
-      const teachersArray = item.subjects; 
-      const classroomLinksArray = item.teachers; 
-      const numberArray = item.classroomLinks; 
+      const timeArray = item.time; 
+      const subjectsArray = item.subjects; 
+      const teachersArray = item.teachers; 
+      const classroomLinksArray = item.classroomLinks; 
+      const numberArray = item.number; 
 
       const maxLength = Math.max(
         timeArray.length,
