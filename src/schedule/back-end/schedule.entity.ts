@@ -9,14 +9,14 @@ export class Schedule {
   dayOfWeek: string;
 
   @Column('varchar', { array: true })
-  time: string[]; // Изменение типа на массив строк
+  time: string[];
 
   @Column('varchar', { array: true })
-  subjects: string[]; // Изменение типа на массив строк
+  subjects: string[]; 
 
   @Column('varchar', { array: true })
-  teachers: string[]; // Изменение типа на массив строк
+  teachers: string[];
 
   @Column('varchar', { array: true })
-  classroomLinks: string[]; // Изменение типа на массив строк
+  classroomLinks: string[]; 
 }

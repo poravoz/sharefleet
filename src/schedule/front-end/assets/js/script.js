@@ -2,7 +2,7 @@ fetch('http://localhost:5433/schedule/')
   .then(response => response.json())
   .then(data => {
     const table = document.createElement('table');
-    table.style.fontSize = '12px'; // Добавляем стиль для уменьшения шрифта
+    table.style.fontSize = '12px';
 
     const thead = document.createElement('thead');
     const headerRow = document.createElement('tr');
