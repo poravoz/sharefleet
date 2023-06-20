@@ -17,7 +17,7 @@ fetch('http://localhost:5433/schedule/')
     table.appendChild(thead);
 
     const tbody = document.createElement('tbody');
-    data.forEach((item, index) => {
+    data.forEach((item) => {
       const timeArray = item.time;
       const subjectsArray = item.subjects;
       const teachersArray = item.teachers;
