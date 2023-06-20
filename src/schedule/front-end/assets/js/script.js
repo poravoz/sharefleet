@@ -17,33 +17,48 @@ fetch('http://localhost:5433/schedule/')
     table.appendChild(thead);
 
     const tbody = document.createElement('tbody');
-    data.forEach(item => {
-      const row = document.createElement('tr');
-      Object.entries(item).forEach(([key, value]) => {
-        if (key !== 'id') {
-          const cell = document.createElement('td');
-          if (Array.isArray(value)) {
-            const valuesContainer = document.createElement('div');
-            value.forEach(item => {
-              const valueElement = document.createElement('div');
-              if (key === 'classroomLinks') {
-                const link = document.createElement('a');
-                link.href = item;
-                link.textContent = item;
-                valueElement.appendChild(link);
-              } else {
-                valueElement.textContent = item;
-              }
-              valuesContainer.appendChild(valueElement);
-            });
-            cell.appendChild(valuesContainer);
-          } else {
-            cell.textContent = value;
-          }
-          row.appendChild(cell);
+    data.forEach((item, index) => {
+      const timeArray = item.time;
+      const subjectsArray = item.subjects;
+      const teachersArray = item.teachers;
+      const classroomLinksArray = item.classroomLinks;
+
+      const maxLength = Math.max(timeArray.length, subjectsArray.length, teachersArray.length, classroomLinksArray.length);
+
+      for (let i = 0; i < maxLength; i++) {
+        const row = document.createElement('tr');
+
+        if (i === 0) {
+          const dayOfWeekCell = document.createElement('td');
+          dayOfWeekCell.textContent = item.dayOfWeek;
+          dayOfWeekCell.style.textAlign = 'center';
+          dayOfWeekCell.rowSpan = maxLength;
+          row.appendChild(dayOfWeekCell);
         }
-      });
-      tbody.appendChild(row);
+
+        const timeCell = document.createElement('td');
+        timeCell.textContent = i < timeArray.length ? timeArray[i] : '';
+        row.appendChild(timeCell);
+
+        const subjectsCell = document.createElement('td');
+        subjectsCell.textContent = i < subjectsArray.length ? subjectsArray[i] : '';
+        row.appendChild(subjectsCell);
+
+        const teachersCell = document.createElement('td');
+        teachersCell.textContent = i < teachersArray.length ? teachersArray[i] : '';
+        row.appendChild(teachersCell);
+
+        const classroomLinksCell = document.createElement('td');
+        if (i < classroomLinksArray.length) {
+          const link = document.createElement('a');
+          link.href = classroomLinksArray[i];
+          link.textContent = classroomLinksArray[i];
+          classroomLinksCell.appendChild(link);
+        }
+        row.appendChild(classroomLinksCell);
+
+        tbody.appendChild(row);
+      }
     });
     table.appendChild(tbody);
 
