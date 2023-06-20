@@ -19,15 +19,20 @@ fetch('http://localhost:5433/schedule/')
 
     const tbody = document.createElement('tbody');
 
-    let rowIndex = 0;
-
     data.forEach((item) => {
-      const timeArray = item.time;
-      const subjectsArray = item.subjects;
-      const teachersArray = item.teachers;
-      const classroomLinksArray = item.classroomLinks;
+      const timeArray = item.number; 
+      const subjectsArray = item.time; 
+      const teachersArray = item.subjects; 
+      const classroomLinksArray = item.teachers; 
+      const numberArray = item.classroomLinks; 
 
-      const maxLength = Math.max(timeArray.length, subjectsArray.length, teachersArray.length, classroomLinksArray.length);
+      const maxLength = Math.max(
+        timeArray.length,
+        subjectsArray.length,
+        teachersArray.length,
+        classroomLinksArray.length,
+        numberArray.length
+      );
 
       for (let i = 0; i < maxLength; i++) {
         const row = document.createElement('tr');
@@ -125,13 +130,17 @@ fetch('http://localhost:5433/schedule/')
         }
         row.appendChild(classroomLinksCell);
 
-        tbody.appendChild(row);
+        const numbersCell = document.createElement('td');
+        if (i < numberArray.length) {
+          numbersCell.textContent = replaceSpecialCharacters(numberArray[i]);
+        }
+        row.appendChild(numbersCell);
 
-        rowIndex++;
+        tbody.appendChild(row);
       }
     });
-    table.appendChild(tbody);
 
+    table.appendChild(tbody);
     document.body.appendChild(table);
   })
   .catch(error => {
@@ -140,8 +149,8 @@ fetch('http://localhost:5433/schedule/')
 
 function replaceSpecialCharacters(text) {
   if (/^https?:\/\//.test(text)) {
-    return text; 
+    return text;
   }
-  
+
   return text.replace(/\//g, '─').replace(/\|/g, '│');
 }

@@ -9,6 +9,9 @@ export class Schedule {
   dayOfWeek: string;
 
   @Column('varchar', { array: true })
+  number: number[];
+
+  @Column('varchar', { array: true })
   time: string[];
 
   @Column('varchar', { array: true })

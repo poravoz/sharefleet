@@ -20,10 +20,11 @@ export class ScheduleService {
     const createdSchedules: Schedule[] = [];
 
     for (const createScheduleDto of createScheduleDtoArray) {
-      const { dayOfWeek, time, subjects, teachers, classroomLinks } = createScheduleDto;
+      const { dayOfWeek, time, subjects, teachers, classroomLinks, number } = createScheduleDto;
 
       const schedule = new Schedule();
       schedule.dayOfWeek = dayOfWeek;
+      schedule.number = number;
       schedule.time = time;
       schedule.subjects = subjects;
       schedule.teachers = teachers;
