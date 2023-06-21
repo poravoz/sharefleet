@@ -131,8 +131,20 @@ fetch('http://localhost:5433/schedule/')
             const linkElement = document.createElement('a');
             linkElement.href = replaceSpecialCharacters(link.trim());
             linkElement.textContent = link.trim();
+            linkElement.style.textDecoration = 'none'; // Додаємо стиль 'text-decoration: none'
+            linkElement.style.color = 'black'; // Додаємо стиль 'color: black'
+            linkElement.style.display = 'block'; // Збільшуємо вертикальний відступ між посиланнями
+            linkElement.style.marginBottom = '4px'; // Збільшуємо вертикальний відступ між посиланнями
+
+            linkElement.addEventListener('mouseenter', () => {
+              linkElement.style.opacity = '0.6'; // Додаємо ефект 'opacity: 0.6' при наведенні
+            });
+
+            linkElement.addEventListener('mouseleave', () => {
+              linkElement.style.opacity = '1'; // Зберігаємо звичайну прозорість при знятті наведення
+            });
+
             classroomLinksCell.appendChild(linkElement);
-            classroomLinksCell.appendChild(document.createElement('br'));
           });
         }
         row.appendChild(classroomLinksCell);
