@@ -21,3 +21,14 @@ td:first-child {
   border-collapse: separate;
   border-spacing: 10px;
 }
+
+.main {
+  text-decoration: none;
+  color: green;
+  font-weight: bold;
+  margin-left: 50px;
+}
+
+.main:hover {
+  opacity: 0.5;
+}

@@ -1,9 +1,19 @@
     .youtube-link {
-        color: blue;
-        text-decoration: underline;
+        color: red;
+        text-decoration: none;
+    }
+
+    .youtube-link:hover {
+        opacity: 0.5;
     }
 
     .schedule-link {
+        text-decoration: none;
         color: green;
         font-weight: bold;
+        margin-left: 50px;
+    }
+
+    .schedule-link:hover {
+        opacity: 0.5;
     }

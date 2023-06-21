@@ -24,3 +24,14 @@
     top: 5%;
     width:500px;
   }
+
+  .main {
+    position: absolute;
+    top: 25%;
+    color: red;
+    text-decoration: none;
+  }
+
+  .main:hover {
+    opacity: 0.5;
+  }
