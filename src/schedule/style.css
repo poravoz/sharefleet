@@ -1,0 +1,9 @@
+    .youtube-link {
+        color: blue;
+        text-decoration: underline;
+    }
+
+    .schedule-link {
+        color: green;
+        font-weight: bold;
+    }
