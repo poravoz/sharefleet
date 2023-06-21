@@ -47,11 +47,11 @@ fetch('http://localhost:5433/schedule/')
           row.appendChild(dayOfWeekCell);
         }
 
-        const numberCell = document.createElement('td'); // Створюємо комірку для стовпця "number"
+        const numberCell = document.createElement('td'); 
         if (i < numberArray.length) {
           numberCell.textContent = replaceSpecialCharacters(numberArray[i]);
         }
-        row.appendChild(numberCell); // Додаємо комірку "number" до рядка
+        row.appendChild(numberCell);
 
         const timeCell = document.createElement('td');
         timeCell.textContent = i < timeArray.length ? replaceSpecialCharacters(timeArray[i]) : '';
