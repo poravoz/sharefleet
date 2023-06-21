@@ -30,8 +30,12 @@ import { FaceControllerService } from './face/face.service';
 import { FaceController } from './face/face.controller';
 import { FaceModule } from './face/face.module';
 import { ScheduleModule } from './schedule/back-end/schedule.module';
-import { ScheduleController } from './schedule/back-end/schedule.controller';
-import { ScheduleService } from './schedule/back-end/schedule.service';
+import { TelegrafModule } from 'nestjs-telegraf';
+import * as LocalSession from 'telegraf-session-local';
+import { TG_TOKEN } from './tg_bot/config';
+import { AppUpdate } from './tg_bot/app.update';
+
+const sessions = new LocalSession({database: 'session_db.json'})
 
 @Module({
   imports: [
@@ -76,11 +80,14 @@ import { ScheduleService } from './schedule/back-end/schedule.service';
   FaceModule,
   ScheduleModule,
 
-
+  TelegrafModule.forRoot({
+    middlewares: [sessions.middleware()],
+    token: TG_TOKEN
+  })
   
 
 ],
   controllers: [AppController, VehicleController, DriverController, ResponseController, FilesController, FaceController],
-  providers: [AppService, DriverService, VehicleService, ResponseService, PromoSearchService, FaceControllerService],
+  providers: [AppService, DriverService, VehicleService, ResponseService, PromoSearchService, FaceControllerService, AppUpdate],
 })
 export class AppModule {}
